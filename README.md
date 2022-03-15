@@ -10,5 +10,5 @@ I will be creating a to-do list with certain tasks that can be stored in local s
 
 
 live github page: https://norfkorean.github.io/JS-ToDo-List-Project/
-live netlify page: 
+live netlify page: https://jiparktodolistproject.netlify.app/
 
