@@ -16,7 +16,7 @@ const addTaskToList = (()=>{
             pushTasktoTaskList();
             emptyInput();
             createTaskHTML.makeTaskBar();
-            console.log('click', taskID,taskList );
+            // console.log('click', taskID,taskList );
         })
     }
     submitTask();
@@ -32,7 +32,7 @@ const addTaskToList = (()=>{
         taskList.push(newTask);
     };
 
-    return {taskList}
+    return {taskList, taskID}
 })();
 
 const createTaskHTML = (()=>{   
@@ -43,12 +43,18 @@ const createTaskHTML = (()=>{
         const liTaskContainer = document.createElement('li');
         liTaskContainer.setAttribute('class', 'tasks');
         taskListContainer.appendChild(liTaskContainer);
+        for (let i = 0; i < addTaskToList.taskList.length;i++){
+            liTaskContainer.setAttribute('id', `${addTaskToList.taskList[i].id}`)
+        }
+        const liTaskContainerID = liTaskContainer.getAttribute('id')
 
         //create title
         const taskTitle = document.createElement('input');
         taskTitle.setAttribute('class', 'task-name');
         taskTitle.setAttribute('value', 'Example Task');
         taskTitle.setAttribute('type', 'text');
+        // taskTitle.setAttribute('id', 'disabled')
+        taskTitle.classList.add('disabled')
         liTaskContainer.appendChild(taskTitle);
 
         //create buttons
@@ -68,8 +74,9 @@ const createTaskHTML = (()=>{
 
         //call functions from other modules
         titleToTaskName(taskTitle);
-        buttonFunctions.deleteFunction();
-        buttonFunctions.editFunction();
+        buttonFunctions.deleteFunction(deleteBtns,liTaskContainer);
+        buttonFunctions.editFunction(editBtns, taskTitle,liTaskContainerID);
+        // console.log(addTaskToList.taskList)
     };
 
     const titleToTaskName = (taskTitle) => {
@@ -84,21 +91,30 @@ const createTaskHTML = (()=>{
 
 const buttonFunctions = (()=>{
 
-    const deleteFunction = () => {
-        const deleteBtns = document.querySelector('.delete-btn');
+    const deleteFunction = (deleteBtns, liTaskContainer) => {
         deleteBtns.addEventListener('click', ()=>{
-            console.log('deleted');
+            liTaskContainer.remove();
+
+            for (let i = 0; i < addTaskToList.taskList.length; i++){
+                
+            }
         })
     };
 
-    const editFunction = () => {
-        const editBtns = document.querySelector('.edit-btn');
-        editBtns.addEventListener('click', ()=>{
-            console.log('edited');
-        })
-
+    const editFunction = (editBtns, taskTitle) => {
+            let editSave = false;
+            editBtns.addEventListener('click', ()=>{
+                if (editSave === false){
+                    editSave = true;
+                    taskTitle.classList.remove('disabled');
+                    editBtns.textContent = "SAVE";
+                } else if (editSave === true){
+                    editSave = false;
+                    editBtns.textContent = "EDIT";
+                    taskTitle.classList.add('disabled')
+                }
+            })
     };
 
     return {deleteFunction, editFunction};
-
 })();
