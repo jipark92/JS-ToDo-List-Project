@@ -1,13 +1,12 @@
 const taskFactory = (id, title, tasks) => {
-    return {id, title,tasks}
+    return {id, title,tasks};
 };
 
-
-
 const addTaskToList = (()=>{
-    const addTaskBtns = document.querySelector('.add-task-btn')
-    const taskInput = document.querySelector('.task-input')
-    let taskID = 0
+    
+    const addTaskBtns = document.querySelector('.add-task-btn');
+    const taskInput = document.querySelector('.task-input');
+    let taskID = 0;
     let taskList = [];
 
     const submitTask = () => {
@@ -16,57 +15,46 @@ const addTaskToList = (()=>{
             if (taskInput.value === "") return;
             pushTasktoTaskList();
             emptyInput();
-            createTaskHTML.makeContainer();
-            createTaskHTML.makeTitle();
-            createTaskHTML.makeButtons();
+            createTaskHTML.makeTaskBar();
             console.log('click', taskID,taskList );
         })
     }
     submitTask();
 
-
     const emptyInput = () =>{
         setTimeout(() => {
             taskInput.value = "";
         }, 0);
-    }
+    };
 
     const pushTasktoTaskList = () => {
-        const newTask = taskFactory(taskID++, taskInput.value )
+        const newTask = taskFactory(taskID++, taskInput.value);
         taskList.push(newTask);
-    }
+    };
 
+    return {taskList}
 })();
-
-
-
-
-
-
 
 const createTaskHTML = (()=>{   
 
-    const makeContainer = () =>{
+    const makeTaskBar = () => {
+        //create container
         const taskListContainer = document.querySelector('.task-list');
-        const litaskContainer = document.createElement('li');
-        litaskContainer.setAttribute('class', 'tasks');
-        taskListContainer.appendChild(litaskContainer)
-    } 
+        const liTaskContainer = document.createElement('li');
+        liTaskContainer.setAttribute('class', 'tasks');
+        taskListContainer.appendChild(liTaskContainer);
 
-    const makeTitle = () => {
-        const taskContainer = document.querySelector('.tasks')
+        //create title
         const taskTitle = document.createElement('input');
         taskTitle.setAttribute('class', 'task-name');
         taskTitle.setAttribute('value', 'Example Task');
         taskTitle.setAttribute('type', 'text');
-        taskContainer.appendChild(taskTitle);
-    }
+        liTaskContainer.appendChild(taskTitle);
 
-    const makeButtons = () => {
-        const taskContainer = document.querySelector('.tasks')
+        //create buttons
         const btnsContainer = document.createElement('div');
         btnsContainer.setAttribute('class', 'btn-container');
-        taskContainer.appendChild(btnsContainer);
+        liTaskContainer.appendChild(btnsContainer);
 
         const editBtns = document.createElement('button');
         editBtns.setAttribute('class', 'edit-btn');
@@ -77,23 +65,40 @@ const createTaskHTML = (()=>{
         deleteBtns.setAttribute('class', 'delete-btn');
         btnsContainer.appendChild(deleteBtns);
         deleteBtns.textContent = "DELETE";
-    }
+
+        //call functions from other modules
+        titleToTaskName(taskTitle);
+        buttonFunctions.deleteFunction();
+        buttonFunctions.editFunction();
+    };
+
+    const titleToTaskName = (taskTitle) => {
+        for (let i = 0; i < addTaskToList.taskList.length; i++){
+            taskTitle.value  = addTaskToList.taskList[i].title;
+        }
+    };
     
-    return {makeContainer, makeTitle, makeButtons}
+    return {makeTaskBar, titleToTaskName};
 })();
 
 
+const buttonFunctions = (()=>{
 
+    const deleteFunction = () => {
+        const deleteBtns = document.querySelector('.delete-btn');
+        deleteBtns.addEventListener('click', ()=>{
+            console.log('deleted');
+        })
+    };
 
+    const editFunction = () => {
+        const editBtns = document.querySelector('.edit-btn');
+        editBtns.addEventListener('click', ()=>{
+            console.log('edited');
+        })
 
+    };
 
+    return {deleteFunction, editFunction};
 
-
-
-
-
-
-
-
-
-// console.log('click', taskID,taskList );
+})();
