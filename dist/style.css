@@ -40,6 +40,7 @@ body{
     border: none;
     border-radius: 5px;
     font-weight: 700;
+    
 }
 
 .add-task-btn {
@@ -49,24 +50,27 @@ body{
     border: none;
     font-size: 1.2rem;
     font-weight: 700;
-    background: -webkit-linear-gradient(red, pink);
+    background: -webkit-linear-gradient(purple, pink);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .tasks {
-    width: 90%;
+    box-shadow: 2px 2px 2px #F0ABFC;
+    max-width: 85%;
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
     margin-bottom: 2rem;
     align-items: center;
     padding: 0.5rem;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .tasks .task-name{
-    pointer-events: none;
-    cursor:not-allowed;
+    /* pointer-events: none;
+    cursor:not-allowed; */
     -webkit-background-clip: text;
     opacity: 75%;
     color: black;
