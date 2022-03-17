@@ -48,7 +48,7 @@ body{
     border: none;
     font-size: 1.2rem;
     font-weight: 1000;
-    background: -webkit-linear-gradient(purple, pink);
+    background: -webkit-linear-gradient(green, pink);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -91,4 +91,26 @@ body{
 .disabled {
     pointer-events: none;
     cursor:not-allowed;
+}
+
+
+.delete-task-input {
+    height: 2.5rem;
+    width: 32vw;
+    background-color: #FECACA;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+.delete-task-btn {
+    cursor: pointer;
+    height: 3rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    background: -webkit-linear-gradient(pink, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
