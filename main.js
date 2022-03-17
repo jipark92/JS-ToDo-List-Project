@@ -1,5 +1,6 @@
-const taskFactory = (id, title, tasks) => {
-    return {id, title,tasks};
+//add task later
+const taskFactory = (id, title) => {
+    return {id, title};
 };
 
 const addTaskToList = (()=>{
@@ -75,7 +76,7 @@ const createTaskHTML = (()=>{
 
         //call functions from other modules
         titleToTaskName(taskTitle);
-        buttonFunctions.deleteFunction(deleteBtns,liTaskContainer);
+        buttonFunctions.deleteFunction(deleteBtns,liTaskContainer, taskTitle);
         buttonFunctions.editFunction(editBtns, taskTitle,);
         buttonFunctions.toDoFunction(toDoBtns)
         // console.log(addTaskToList.taskList)
@@ -90,13 +91,11 @@ const createTaskHTML = (()=>{
     return {makeTaskBar, titleToTaskName};
 })();
 
-
 const buttonFunctions = (()=>{
-
-    const deleteFunction = (deleteBtns, liTaskContainer, liTaskContainerID) => {
+    const deleteFunction = (deleteBtns, liTaskContainer,taskTitle) => {
         deleteBtns.addEventListener('click', ()=>{
             liTaskContainer.remove();
-            alterObjects.deleteObject();
+            alterObjects.deleteObject(taskTitle);
         })
     };
 
@@ -117,6 +116,7 @@ const buttonFunctions = (()=>{
                     editSave = false;
                     editBtns.textContent = "EDIT";
                     taskTitle.classList.add('disabled')
+                    alterObjects.editObjectTitle();
                 }
             })
     };
@@ -124,19 +124,45 @@ const buttonFunctions = (()=>{
     return {deleteFunction, toDoFunction, editFunction};
 })();
 
-
-
 const alterObjects = (() =>{
-    
-    const deleteObject = () => {
-        console.log("delete")
+
+    const deleteObject = (taskTitle) => {        
+        for (let i = 0; i < addTaskToList.taskList.length; i++){
+            if (taskTitle.value === addTaskToList.taskList[i].title){
+                // delete addTaskToList.taskList[i].id
+                // delete addTaskToList.taskList[i].title
+                addTaskToList.taskList.splice(i,1);
+                console.log(addTaskToList.taskList)
+            }
+        }
     }
+
 
     const editObjectTitle = () => {
         console.log('changed')
+        
     }
-
-    
 
     return {deleteObject, editObjectTitle}
 })();
+
+
+
+
+
+
+
+
+
+
+// const deleteTaskFunction = () => {
+//     deleteTaskBtns.addEventListener('click',(e) => {
+//         e.preventDefault();
+//         if (deleteTaskInputs.value === "") return;
+
+       
+//         console.log("delete")
+//     })
+    
+// }
+// deleteTaskFunction();
