@@ -10,30 +10,26 @@
 </head>
 <body>
     <div class="container">
-        <!-- start -->
-        <header class="header-title">
-            <h1>My To-DO List</h1>
-        </header>
-        <div class="sidebar">
-            <h2>Projects</h2>
-            <ol class="project-list" data-lists>
-                <!-- <li class="project-name">Example Project</li> -->
-            </ol>     
-            <input class="project-name-input"type="text" placeholder="Project Name...">
-            <button class="add-project-btn">ADD PROJECT</button>
+        <!--  -->
+        <h1 class="title">My To-Do List</h1> 
+        <!--  -->
+        <div class="input-container">
+            <input class="task-input"type="text" placeholder="What is going on this year?">
+            <button class="add-task-btn">Add Task</button>
         </div>
-        <div class="content">
-            <!-- <div class="task">
-                <p class="title">Example testing</p>
-                <button class="detail">details</button>
-                <p class="date">date</p>
-                <button class="edit">edit</button>
-                <button class="delete">delete</button>
-                <input class="checkbox"type="checkbox">Complete</input>      
-            </div> -->
-            <button class="new-task-btn">New Task</button>
-        </div>
-        <!-- end -->
+        <!--  -->
+        <ol class="task-list" data-lists>
+            <h2>Tasks</h2>
+            <li class="tasks">
+                <input type="text" class="task-name" value="Example Task"> 
+                <div class="btn-container">
+                    <!-- <button class="todo-btn">TO-DO</button> -->
+                    <button class="edit-btn">EDIT</button>
+                    <button class="delete-btn">DELETE</button>
+                </div>
+            </li>
+        </ol>  
+        <!--  -->
     </div>
 </body>
 </html>
