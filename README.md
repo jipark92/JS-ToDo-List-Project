@@ -15,9 +15,9 @@ Main focus of this project is array/objects:
     - You can check the constant array/object update in Insepct > Console
 
 
-live page: https://jiparktodolistproject.netlify.app/
+netlify live page: https://jiparktodolistproject.netlify.app/
 
-live page: https://norfkorean.github.io/JS-ToDo-List-Project/
+github live page: https://norfkorean.github.io/JS-ToDo-List-Project/
 
 Instruction: 
 
