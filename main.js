@@ -58,26 +58,59 @@ const createTaskHTML = (()=>{
         btnsContainer.setAttribute('class', 'btn-container');
         liTaskContainer.appendChild(btnsContainer);
 
-        const editBtns = document.createElement('button');
-        editBtns.setAttribute('class', 'edit-btn');
-        btnsContainer.appendChild(editBtns);
-        editBtns.textContent = "EDIT";
-
         const toDoBtns = document.createElement('button');
         toDoBtns.setAttribute('class', 'todo-btn');
         btnsContainer.appendChild(toDoBtns);
         toDoBtns.textContent = "TODO";
+
+        const editBtns = document.createElement('button');
+        editBtns.setAttribute('class', 'edit-btn');
+        btnsContainer.appendChild(editBtns);
+        editBtns.textContent = "EDIT";
 
         const deleteBtns = document.createElement('button');
         deleteBtns.setAttribute('class', 'delete-btn');
         btnsContainer.appendChild(deleteBtns);
         deleteBtns.textContent = "DELETE";
 
+        //make modal box
+        const modalBox = document.createElement('div');
+        modalBox.setAttribute('class', 'modal');
+        taskListContainer.appendChild(modalBox)
+
+        //make description input
+        const description = document.createElement('textarea')
+        description.setAttribute('class', 'description-box')
+        description.setAttribute('placeholder', 'your description here');
+        modalBox.appendChild(description)
+
+        //due date 
+        const dueDate = document.createElement('p');
+        dueDate.setAttribute('class', 'due-date')
+        dueDate.textContent = "Due Date"
+        modalBox.appendChild(dueDate)
+
+        //priority level
+        const priorityLevel = document.createElement('p');
+        priorityLevel.setAttribute('class', 'priority')
+        priorityLevel.textContent = "HIGH"
+        modalBox.appendChild(priorityLevel)
+
+        //close modal
+        const closeModalBtns = document.createElement('button');
+        closeModalBtns.setAttribute('class','close-modal-btn')
+        closeModalBtns.textContent = "Hide"
+        modalBox.appendChild(closeModalBtns);
+
+
+
         //call functions from other modules
         titleToTaskName(taskTitle);
-        buttonFunctions.deleteFunction(deleteBtns,liTaskContainer, taskTitle);
+        buttonFunctions.deleteFunction(deleteBtns,liTaskContainer, taskTitle, modalBox);
         buttonFunctions.editFunction(editBtns, taskTitle, contID);
-        buttonFunctions.toDoFunction(toDoBtns);
+        buttonFunctions.toDoFunction(toDoBtns, modalBox, closeModalBtns);
+        buttonFunctions.closeModal(modalBox, closeModalBtns)
+
         // console.log(addTaskToList.taskList)
     };
 
@@ -90,18 +123,25 @@ const createTaskHTML = (()=>{
 })();
 
 const buttonFunctions = (()=>{
-    const deleteFunction = (deleteBtns, liTaskContainer,taskTitle) => {
+    const deleteFunction = (deleteBtns, liTaskContainer,taskTitle, modalBox) => {
         deleteBtns.addEventListener('click', ()=>{
             liTaskContainer.remove();
+            modalBox.remove();
             alterObjects.deleteObject(taskTitle);
         })
     };
 
-    const toDoFunction = (toDoBtns) => {
+    const toDoFunction = (toDoBtns,modalBox, closeModalBtns) => {
         toDoBtns.addEventListener('click', ()=>{
-            console.log('todo');
+            modalBox.style.visibility = "visible"
         })
     };
+
+    const closeModal = (modalBox,closeModalBtns) => {
+        closeModalBtns.addEventListener('click',()=>{
+            modalBox.style.visibility = "hidden"
+        })
+    }
 
     const editFunction = (editBtns, taskTitle, contID) => {
             let editSave = false;
@@ -110,15 +150,17 @@ const buttonFunctions = (()=>{
                     editSave = true;
                     taskTitle.classList.remove('disabled');
                     editBtns.textContent = "SAVE";
+                    taskTitle.style.border = "2px solid green"
                 } else if (editSave){
                     editSave = false;
                     editBtns.textContent = "EDIT";
                     taskTitle.classList.add('disabled');
                     alterObjects.editObjectTitle(taskTitle, contID);
+                    taskTitle.style.border = ""
                 }
             })
     };
-    return {deleteFunction, toDoFunction, editFunction};
+    return {deleteFunction, toDoFunction, closeModal, editFunction};
 })();
 
 const alterObjects = (() =>{
@@ -151,3 +193,19 @@ const alterObjects = (() =>{
 //         console.log(addTaskToList.taskList);
 //     }
 // }
+
+// const closeModal = (modal) => {
+//     const closeModalBtns = document.querySelector('.close-btn');
+//     closeModalBtns.addEventListener('click', ()=>{
+//         modal.style.visibility = "hidden";
+//     })
+// }
+
+// const toDoFunction = (toDoBtns) => {
+//     const modal = document.querySelector('.modal');
+//     toDoBtns.addEventListener('click', ()=>{
+        
+//         modal.style.visibility = "visible";
+//         closeModal(modal);
+//     })
+// };
