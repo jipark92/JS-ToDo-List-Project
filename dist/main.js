@@ -82,47 +82,79 @@ const createTaskHTML = (()=>{
         //make modal box
         const modalBox = document.createElement('div');
         modalBox.setAttribute('class', 'modal');
-        taskListContainer.appendChild(modalBox)
+        taskListContainer.appendChild(modalBox);
+
+        //make description/month/priorty div container
+        const descriptionCont = document.createElement('div');
+        descriptionCont.setAttribute('class','desc-container')
+        modalBox.appendChild(descriptionCont);
+
+        const dateCont = document.createElement('div');
+        dateCont.setAttribute('class','date-container');
+        modalBox.appendChild(dateCont);
+
+        const priorityCont = document.createElement('div');
+        priorityCont.setAttribute('class','priority-container');
+        modalBox.appendChild(priorityCont);
+
+        //make text 
+        const descText = document.createElement('p');
+        descText.setAttribute('class','desc-text');
+        descriptionCont.appendChild(descText);
+        descText.textContent = "Detail: ";
+
+        const dateText = document.createElement('p');
+        dateText.setAttribute('class','date-text');
+        descriptionCont.appendChild(dateText);
+        dateCont.textContent = "Due Date: ";
+
+        const priorityText = document.createElement('p')
+        priorityText.setAttribute('class','priority-text');
+        descriptionCont.appendChild(priorityText);
+        priorityCont.textContent = "Priority Level: ";
 
         //make description input
-        const description = document.createElement('textarea')
-        description.setAttribute('class', 'description-box')
+        const description = document.createElement('textarea');
+        description.setAttribute('class', 'description-box');
         description.setAttribute('placeholder', 'your description here');
-        modalBox.appendChild(description)
+        descriptionCont.appendChild(description);
 
         //due date 
-        const dueDate = document.createElement('p');
-        dueDate.setAttribute('class', 'due-date')
-        dueDate.textContent = "Due Date"
-        modalBox.appendChild(dueDate)
+        const dueDate = document.createElement('input');
+        dueDate.setAttribute('class', 'due-date');
+        dueDate.setAttribute('type', 'date');
+        dateCont.appendChild(dueDate);
 
         //priority level drop down menu
         const priorityLevel = document.createElement('select');
-        priorityLevel.setAttribute('class', 'priority')
-        modalBox.appendChild(priorityLevel)
+        priorityLevel.setAttribute('class', 'priority');
+        priorityCont.appendChild(priorityLevel);
 
         //level low
         const priorityLevelSelect = document.createElement('option');
-        priorityLevelSelect.setAttribute('value', 'Low')
-        priorityLevelSelect.textContent = "Low"
-        priorityLevel.appendChild(priorityLevelSelect)
+        priorityLevelSelect.setAttribute('value', 'Low');
+        priorityLevelSelect.textContent = "Low";
+        priorityLevel.appendChild(priorityLevelSelect);
 
         //level mid
         const priorityLevelSelectMid = document.createElement('option');
-        priorityLevelSelectMid.setAttribute('value', 'Mid')
-        priorityLevelSelectMid.textContent = "Mid"
-        priorityLevel.appendChild(priorityLevelSelectMid)
+        priorityLevelSelectMid.setAttribute('value', 'Mid');
+        priorityLevelSelectMid.textContent = "Mid";
+        priorityLevel.appendChild(priorityLevelSelectMid);
 
         //level hard
         const priorityLevelSelectHigh = document.createElement('option');
-        priorityLevelSelectHigh.setAttribute('value', 'High')
-        priorityLevelSelectHigh.textContent = "High"
-        priorityLevel.appendChild(priorityLevelSelectHigh)
+        priorityLevelSelectHigh.setAttribute('value', 'High');
+        priorityLevelSelectHigh.textContent = "High";
+        priorityLevel.appendChild(priorityLevelSelectHigh);
+
+
+
 
         //close modal
         const closeModalBtns = document.createElement('button');
-        closeModalBtns.setAttribute('class','close-modal-btn')
-        closeModalBtns.textContent = "Save & Hide"
+        closeModalBtns.setAttribute('class','close-modal-btn');
+        closeModalBtns.textContent = "Save & Hide";
         modalBox.appendChild(closeModalBtns);
 
         //call functions from other modules
@@ -202,7 +234,7 @@ const alterObjects = (() =>{
                 console.log(addTaskToList.taskList);
             }
         }
-        console.log(newContID)
+        // console.log(newContID)
     };
     return {deleteObject, editObjectTitle};
 })();
