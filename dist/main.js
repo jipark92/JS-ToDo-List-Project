@@ -1,9 +1,8 @@
 //add task later
-const taskFactory = (id, title) => {
-    return {id, title};
+const taskFactory = (id, title, task) => {
+    return {id, title, task};
 };
 
-//submission module
 const addTaskToList = (()=>{
     const addTaskBtns = document.querySelector('.add-task-btn');
     const taskInput = document.querySelector('.task-input');
@@ -35,7 +34,6 @@ const addTaskToList = (()=>{
     return {taskList, taskID};
 })();
 
-//create html module
 const createTaskHTML = (()=>{   
     const makeTaskBar = () => {
         //create container
@@ -91,7 +89,6 @@ const createTaskHTML = (()=>{
     return {makeTaskBar, titleToTaskName};
 })();
 
-//button module
 const buttonFunctions = (()=>{
     const deleteFunction = (deleteBtns, liTaskContainer,taskTitle) => {
         deleteBtns.addEventListener('click', ()=>{
@@ -124,7 +121,6 @@ const buttonFunctions = (()=>{
     return {deleteFunction, toDoFunction, editFunction};
 })();
 
-//changing object module
 const alterObjects = (() =>{
     const deleteObject = (taskTitle) => {        
         for (let i = 0; i < addTaskToList.taskList.length; i++){
@@ -133,8 +129,8 @@ const alterObjects = (() =>{
                 console.log(addTaskToList.taskList)
             }
         }
-    }
-    //work on changing object title for each.
+    };
+
     const editObjectTitle = (taskTitle, contID) => {
         let newContID = parseInt(contID);
         for (let i = 0; i < addTaskToList.taskList.length; i++){
