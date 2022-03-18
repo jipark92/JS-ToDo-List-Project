@@ -47,7 +47,6 @@ const addTaskToList = (()=>{
 
     const isChecked = (check, checkText,contID) => {
         let checkedBox = check.checked;
-        console.log(checkedBox);
         check.addEventListener('click',()=>{
             let newContID = parseInt(contID);
             for (let i = 0; i < taskList.length; i++){
