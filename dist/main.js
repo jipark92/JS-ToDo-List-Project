@@ -1,14 +1,6 @@
-// import { addDays} from 'date-fns';
-
-
-//add task later
-const taskFactory = (id, title, detail, date, priority ) => {
-    return {id, title, detail, date, priority};
+const taskFactory = (id, title, detail, date, priority, isComplete ) => {
+    return {id, title, detail, date, priority, isComplete};
 };
-
-// const informationFactory = (detail, date, priority) =>{
-//     return {detail, date, priority}
-// }
 
 const addTaskToList = (()=>{
     const addTaskBtns = document.querySelector('.add-task-btn');
@@ -40,8 +32,10 @@ const addTaskToList = (()=>{
     };
 
     const pushInformation = (closeModalBtns, description,dueDate,priorityLevel, contID) => {
+        
+        
         closeModalBtns.addEventListener('click', ()=>{
-            console.log(taskList)
+            console.log(taskList);
             let newContID = parseInt(contID);
             for (let i = 0;i <taskList.length; i++){
                 if ( newContID === taskList[i].id){
@@ -52,8 +46,33 @@ const addTaskToList = (()=>{
             }
         })
     };
+
+    const isChecked = (check, checkText,contID) => {
+        let checkedBox = check.checked
+        console.log(checkedBox);
+        check.addEventListener('click',()=>{
+            let newContID = parseInt(contID);
+            for (let i = 0; i < taskList.length; i++){
+                if (newContID === taskList[i].id){
+                    if (!checkedBox){
+                        checkText.textContent = "Complete"
+                        checkedBox = true;
+                        taskList[i].isComplete = checkedBox;
+                        console.log(checkedBox)
+                        console.log(taskList)
+                    } else {
+                        checkText.textContent = "Incomplete"
+                        checkedBox = false;
+                        taskList[i].isComplete = checkedBox;
+                        console.log(checkedBox)
+                        console.log(taskList)
+                    }
+                }
+            }
+        })
+    }
     
-    return {taskList, taskID, pushInformation};
+    return {taskList, taskID, pushInformation, isChecked};
 })();
 
 const createTaskHTML = (()=>{   
@@ -66,7 +85,7 @@ const createTaskHTML = (()=>{
         for (let i = 0; i < addTaskToList.taskList.length;i++){
             liTaskContainer.setAttribute('id', `${addTaskToList.taskList[i].id}`)
         }
-        const contID = liTaskContainer.getAttribute('id', addTaskToList.taskList.id)
+        const contID = liTaskContainer.getAttribute('id', addTaskToList.taskList.id);
 
         //create title
         const taskTitle = document.createElement('input');
@@ -116,6 +135,10 @@ const createTaskHTML = (()=>{
         priorityCont.setAttribute('class','priority-container');
         modalBox.appendChild(priorityCont);
 
+        const checkCont = document.createElement('div');
+        checkCont.setAttribute('class','check-container');
+        modalBox.appendChild(checkCont);
+
         //make text 
         const descText = document.createElement('p');
         descText.setAttribute('class','desc-text');
@@ -131,6 +154,11 @@ const createTaskHTML = (()=>{
         priorityText.setAttribute('class','priority-text');
         descriptionCont.appendChild(priorityText);
         priorityCont.textContent = "Priority Level: ";
+
+        const checkText = document.createElement('p')
+        checkText.setAttribute('class','check-text');
+        checkCont.appendChild(checkText);
+        checkText.textContent = "Incomplete: ";
 
         //make description input
         const description = document.createElement('textarea');
@@ -167,6 +195,12 @@ const createTaskHTML = (()=>{
         priorityLevelSelectHigh.textContent = "High";
         priorityLevel.appendChild(priorityLevelSelectHigh);
 
+        //checkbox
+        const check = document.createElement('input');
+        check.setAttribute('class', 'check-box');
+        check.setAttribute('type', 'checkbox');
+        checkCont.appendChild(check);
+
         //close modal
         const closeModalBtns = document.createElement('button');
         closeModalBtns.setAttribute('class','close-modal-btn');
@@ -178,10 +212,9 @@ const createTaskHTML = (()=>{
         buttonFunctions.deleteFunction(deleteBtns,liTaskContainer, taskTitle, modalBox);
         buttonFunctions.editFunction(editBtns, taskTitle, contID);
         buttonFunctions.toDoFunction(toDoBtns, modalBox, closeModalBtns);
-        buttonFunctions.closeModal(modalBox, closeModalBtns)
-        addTaskToList.pushInformation(closeModalBtns, priorityLevel, description,dueDate, contID)
-
-        // console.log(addTaskToList.taskList)
+        buttonFunctions.closeModal(modalBox, closeModalBtns);
+        addTaskToList.pushInformation(closeModalBtns, priorityLevel, description,dueDate, contID);
+        addTaskToList.isChecked(check, checkText, contID)
     };
 
     const titleToTaskName = (taskTitle) => {
@@ -203,13 +236,13 @@ const buttonFunctions = (()=>{
 
     const toDoFunction = (toDoBtns,modalBox, closeModalBtns) => {
         toDoBtns.addEventListener('click', ()=>{
-            modalBox.style.visibility = "visible"
+            modalBox.style.visibility = "visible";
         })
     };
 
     const closeModal = (modalBox,closeModalBtns) => {
         closeModalBtns.addEventListener('click',()=>{
-            modalBox.style.visibility = "hidden"
+            modalBox.style.visibility = "hidden";
         })
     }
 
@@ -220,13 +253,13 @@ const buttonFunctions = (()=>{
                     editSave = true;
                     taskTitle.classList.remove('disabled');
                     editBtns.textContent = "SAVE";
-                    taskTitle.style.border = "2px solid green"
+                    taskTitle.style.border = "2px solid green";
                 } else if (editSave){
                     editSave = false;
                     editBtns.textContent = "EDIT";
                     taskTitle.classList.add('disabled');
                     alterObjects.editObjectTitle(taskTitle, contID);
-                    taskTitle.style.border = ""
+                    taskTitle.style.border = "";
                 }
             })
     };
@@ -238,7 +271,7 @@ const alterObjects = (() =>{
         for (let i = 0; i < addTaskToList.taskList.length; i++){
             if (taskTitle.value === addTaskToList.taskList[i].title){
                 addTaskToList.taskList.splice(i,1);
-                console.log(addTaskToList.taskList)
+                console.log(addTaskToList.taskList);
             }
         }
     };
@@ -255,27 +288,3 @@ const alterObjects = (() =>{
     };
     return {deleteObject, editObjectTitle};
 })();
-
-
-// for (let i = 0; i < addTaskToList.taskList.length; i++){
-//     if (taskTitle.value === addTaskToList.taskList[i].id){
-//         addTaskToList.taskList[i].title = taskTitle.value;
-//         console.log(addTaskToList.taskList);
-//     }
-// }
-
-// const closeModal = (modal) => {
-//     const closeModalBtns = document.querySelector('.close-btn');
-//     closeModalBtns.addEventListener('click', ()=>{
-//         modal.style.visibility = "hidden";
-//     })
-// }
-
-// const toDoFunction = (toDoBtns) => {
-//     const modal = document.querySelector('.modal');
-//     toDoBtns.addEventListener('click', ()=>{
-        
-//         modal.style.visibility = "visible";
-//         closeModal(modal);
-//     })
-// };
