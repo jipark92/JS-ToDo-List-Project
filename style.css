@@ -167,6 +167,17 @@ body{
     width: 93%;    
 }
 
+.check-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 93%; 
+    background: -webkit-linear-gradient(blue,red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    height: 20px;
+}
+
 .desc-text {
     background: -webkit-linear-gradient(blue,red);
     -webkit-background-clip: text;
@@ -230,3 +241,4 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
