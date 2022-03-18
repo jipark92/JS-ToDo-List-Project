@@ -15,9 +15,10 @@ const addTaskToList = (()=>{
             pushTasktoTaskList();
             emptyInput();
             createTaskHTML.makeTaskBar();
+            addToLocalStorage()
             console.log(taskList );
         })
-    }
+    };
     submitTask();
 
     const emptyInput = () =>{
@@ -26,8 +27,17 @@ const addTaskToList = (()=>{
         }, 0);
     };
 
+    const addToLocalStorage = () =>{
+        let setLocalStorageString = JSON.stringify(taskList);
+        localStorage.setItem("taskList", setLocalStorageString);
+    };
+
+    const getToLocalStorage = () =>{
+        let getLocalStorageParsed = JSON.parse(localStorage.getItem('taskList'));
+    }
+
     const pushTasktoTaskList = () => {
-        const newTask = taskFactory(taskID++, taskInput.value, "", "", "");
+        const newTask = taskFactory(taskID++, taskInput.value, undefined, undefined, undefined);
         taskList.push(newTask);
     };
 
@@ -42,6 +52,7 @@ const addTaskToList = (()=>{
                     taskList[i].priority = description.value;
                 }
             }
+            addToLocalStorage();
         })
     };
 
@@ -283,3 +294,6 @@ const alterObjects = (() =>{
     };
     return {deleteObject, editObjectTitle};
 })();
+
+
+
