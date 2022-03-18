@@ -12,6 +12,8 @@ Main focus of this project is array/objects:
 
     - Deleting specific task will delete specific object/property(value) associated to it.
 
+    - You can check the constant array/object update in Insepct > Console
+
 
 live page: https://jiparktodolistproject.netlify.app/
 
