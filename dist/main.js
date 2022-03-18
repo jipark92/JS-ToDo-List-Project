@@ -1,3 +1,6 @@
+// import { addDays} from 'date-fns';
+
+
 //add task later
 const taskFactory = (id, title, task) => {
     return {id, title, task};
@@ -45,10 +48,10 @@ const createTaskHTML = (()=>{
             liTaskContainer.setAttribute('id', `${addTaskToList.taskList[i].id}`)
         }
         const contID = liTaskContainer.getAttribute('id', addTaskToList.taskList.id)
+
         //create title
         const taskTitle = document.createElement('input');
         taskTitle.setAttribute('class', 'task-name');
-        // taskTitle.setAttribute('value', 'Example Task');
         taskTitle.setAttribute('type', 'text');
         taskTitle.classList.add('disabled');
         liTaskContainer.appendChild(taskTitle);
@@ -58,16 +61,19 @@ const createTaskHTML = (()=>{
         btnsContainer.setAttribute('class', 'btn-container');
         liTaskContainer.appendChild(btnsContainer);
 
+        //make todo button
         const toDoBtns = document.createElement('button');
         toDoBtns.setAttribute('class', 'todo-btn');
         btnsContainer.appendChild(toDoBtns);
         toDoBtns.textContent = "TODO";
 
+        //make edit button
         const editBtns = document.createElement('button');
         editBtns.setAttribute('class', 'edit-btn');
         btnsContainer.appendChild(editBtns);
         editBtns.textContent = "EDIT";
 
+        //make delete button
         const deleteBtns = document.createElement('button');
         deleteBtns.setAttribute('class', 'delete-btn');
         btnsContainer.appendChild(deleteBtns);
@@ -90,19 +96,34 @@ const createTaskHTML = (()=>{
         dueDate.textContent = "Due Date"
         modalBox.appendChild(dueDate)
 
-        //priority level
-        const priorityLevel = document.createElement('p');
+        //priority level drop down menu
+        const priorityLevel = document.createElement('select');
         priorityLevel.setAttribute('class', 'priority')
-        priorityLevel.textContent = "HIGH"
         modalBox.appendChild(priorityLevel)
+
+        //level low
+        const priorityLevelSelect = document.createElement('option');
+        priorityLevelSelect.setAttribute('value', 'Low')
+        priorityLevelSelect.textContent = "Low"
+        priorityLevel.appendChild(priorityLevelSelect)
+
+        //level mid
+        const priorityLevelSelectMid = document.createElement('option');
+        priorityLevelSelectMid.setAttribute('value', 'Mid')
+        priorityLevelSelectMid.textContent = "Mid"
+        priorityLevel.appendChild(priorityLevelSelectMid)
+
+        //level hard
+        const priorityLevelSelectHigh = document.createElement('option');
+        priorityLevelSelectHigh.setAttribute('value', 'High')
+        priorityLevelSelectHigh.textContent = "High"
+        priorityLevel.appendChild(priorityLevelSelectHigh)
 
         //close modal
         const closeModalBtns = document.createElement('button');
         closeModalBtns.setAttribute('class','close-modal-btn')
-        closeModalBtns.textContent = "Hide"
+        closeModalBtns.textContent = "Save & Hide"
         modalBox.appendChild(closeModalBtns);
-
-
 
         //call functions from other modules
         titleToTaskName(taskTitle);
