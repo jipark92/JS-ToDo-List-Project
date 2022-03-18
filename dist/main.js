@@ -2,9 +2,13 @@
 
 
 //add task later
-const taskFactory = (id, title, task) => {
-    return {id, title, task};
+const taskFactory = (id, title, detail, date, priority ) => {
+    return {id, title, detail, date, priority};
 };
+
+// const informationFactory = (detail, date, priority) =>{
+//     return {detail, date, priority}
+// }
 
 const addTaskToList = (()=>{
     const addTaskBtns = document.querySelector('.add-task-btn');
@@ -31,10 +35,25 @@ const addTaskToList = (()=>{
     };
 
     const pushTasktoTaskList = () => {
-        const newTask = taskFactory(taskID++, taskInput.value);
+        const newTask = taskFactory(taskID++, taskInput.value, "", "", "");
         taskList.push(newTask);
     };
-    return {taskList, taskID};
+
+    const pushInformation = (closeModalBtns, description,dueDate,priorityLevel, contID) => {
+        closeModalBtns.addEventListener('click', ()=>{
+            console.log(taskList)
+            let newContID = parseInt(contID);
+            for (let i = 0;i <taskList.length; i++){
+                if ( newContID === taskList[i].id){
+                    taskList[i].detail = dueDate.value;
+                    taskList[i].date = priorityLevel.value;
+                    taskList[i].priority = description.value;
+                }
+            }
+        })
+    };
+    
+    return {taskList, taskID, pushInformation};
 })();
 
 const createTaskHTML = (()=>{   
@@ -142,14 +161,11 @@ const createTaskHTML = (()=>{
         priorityLevelSelectMid.textContent = "Mid";
         priorityLevel.appendChild(priorityLevelSelectMid);
 
-        //level hard
+        //level high
         const priorityLevelSelectHigh = document.createElement('option');
         priorityLevelSelectHigh.setAttribute('value', 'High');
         priorityLevelSelectHigh.textContent = "High";
         priorityLevel.appendChild(priorityLevelSelectHigh);
-
-
-
 
         //close modal
         const closeModalBtns = document.createElement('button');
@@ -163,6 +179,7 @@ const createTaskHTML = (()=>{
         buttonFunctions.editFunction(editBtns, taskTitle, contID);
         buttonFunctions.toDoFunction(toDoBtns, modalBox, closeModalBtns);
         buttonFunctions.closeModal(modalBox, closeModalBtns)
+        addTaskToList.pushInformation(closeModalBtns, priorityLevel, description,dueDate, contID)
 
         // console.log(addTaskToList.taskList)
     };
