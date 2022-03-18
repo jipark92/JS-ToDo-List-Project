@@ -3,6 +3,7 @@ const taskFactory = (id, title) => {
     return {id, title};
 };
 
+//submission module
 const addTaskToList = (()=>{
     const addTaskBtns = document.querySelector('.add-task-btn');
     const taskInput = document.querySelector('.task-input');
@@ -31,10 +32,10 @@ const addTaskToList = (()=>{
         const newTask = taskFactory(taskID++, taskInput.value);
         taskList.push(newTask);
     };
-
-    return {taskList, taskID}
+    return {taskList, taskID};
 })();
 
+//create html module
 const createTaskHTML = (()=>{   
     const makeTaskBar = () => {
         //create container
@@ -45,13 +46,13 @@ const createTaskHTML = (()=>{
         for (let i = 0; i < addTaskToList.taskList.length;i++){
             liTaskContainer.setAttribute('id', `${addTaskToList.taskList[i].id}`)
         }
-
+        const contID = liTaskContainer.getAttribute('id', addTaskToList.taskList.id)
         //create title
         const taskTitle = document.createElement('input');
         taskTitle.setAttribute('class', 'task-name');
-        taskTitle.setAttribute('value', 'Example Task');
+        // taskTitle.setAttribute('value', 'Example Task');
         taskTitle.setAttribute('type', 'text');
-        taskTitle.classList.add('disabled')
+        taskTitle.classList.add('disabled');
         liTaskContainer.appendChild(taskTitle);
 
         //create buttons
@@ -67,7 +68,7 @@ const createTaskHTML = (()=>{
         const toDoBtns = document.createElement('button');
         toDoBtns.setAttribute('class', 'todo-btn');
         btnsContainer.appendChild(toDoBtns);
-        toDoBtns.textContent = "TODO"
+        toDoBtns.textContent = "TODO";
 
         const deleteBtns = document.createElement('button');
         deleteBtns.setAttribute('class', 'delete-btn');
@@ -77,8 +78,8 @@ const createTaskHTML = (()=>{
         //call functions from other modules
         titleToTaskName(taskTitle);
         buttonFunctions.deleteFunction(deleteBtns,liTaskContainer, taskTitle);
-        buttonFunctions.editFunction(editBtns, taskTitle,);
-        buttonFunctions.toDoFunction(toDoBtns)
+        buttonFunctions.editFunction(editBtns, taskTitle, contID);
+        buttonFunctions.toDoFunction(toDoBtns);
         // console.log(addTaskToList.taskList)
     };
 
@@ -87,10 +88,10 @@ const createTaskHTML = (()=>{
             taskTitle.value  = addTaskToList.taskList[i].title;
         }
     };
-    
     return {makeTaskBar, titleToTaskName};
 })();
 
+//button module
 const buttonFunctions = (()=>{
     const deleteFunction = (deleteBtns, liTaskContainer,taskTitle) => {
         deleteBtns.addEventListener('click', ()=>{
@@ -101,68 +102,56 @@ const buttonFunctions = (()=>{
 
     const toDoFunction = (toDoBtns) => {
         toDoBtns.addEventListener('click', ()=>{
-            console.log('todo')
+            console.log('todo');
         })
     };
 
-    const editFunction = (editBtns, taskTitle) => {
+    const editFunction = (editBtns, taskTitle, contID) => {
             let editSave = false;
             editBtns.addEventListener('click', ()=>{
-                if (editSave === false){
+                if (!editSave){
                     editSave = true;
                     taskTitle.classList.remove('disabled');
                     editBtns.textContent = "SAVE";
-                } else if (editSave === true){
+                } else if (editSave){
                     editSave = false;
                     editBtns.textContent = "EDIT";
-                    taskTitle.classList.add('disabled')
-                    alterObjects.editObjectTitle();
+                    taskTitle.classList.add('disabled');
+                    alterObjects.editObjectTitle(taskTitle, contID);
                 }
             })
     };
-
     return {deleteFunction, toDoFunction, editFunction};
 })();
 
+//changing object module
 const alterObjects = (() =>{
-
     const deleteObject = (taskTitle) => {        
         for (let i = 0; i < addTaskToList.taskList.length; i++){
             if (taskTitle.value === addTaskToList.taskList[i].title){
-                // delete addTaskToList.taskList[i].id
-                // delete addTaskToList.taskList[i].title
                 addTaskToList.taskList.splice(i,1);
                 console.log(addTaskToList.taskList)
             }
         }
     }
-
-
-    const editObjectTitle = () => {
-        console.log('changed')
-        
-    }
-
-    return {deleteObject, editObjectTitle}
+    //work on changing object title for each.
+    const editObjectTitle = (taskTitle, contID) => {
+        let newContID = parseInt(contID);
+        for (let i = 0; i < addTaskToList.taskList.length; i++){
+            if (newContID === addTaskToList.taskList[i].id){
+                addTaskToList.taskList[i].title = taskTitle.value;
+                console.log(addTaskToList.taskList);
+            }
+        }
+        console.log(newContID)
+    };
+    return {deleteObject, editObjectTitle};
 })();
 
 
-
-
-
-
-
-
-
-
-// const deleteTaskFunction = () => {
-//     deleteTaskBtns.addEventListener('click',(e) => {
-//         e.preventDefault();
-//         if (deleteTaskInputs.value === "") return;
-
-       
-//         console.log("delete")
-//     })
-    
+// for (let i = 0; i < addTaskToList.taskList.length; i++){
+//     if (taskTitle.value === addTaskToList.taskList[i].id){
+//         addTaskToList.taskList[i].title = taskTitle.value;
+//         console.log(addTaskToList.taskList);
+//     }
 // }
-// deleteTaskFunction();
