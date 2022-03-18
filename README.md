@@ -15,6 +15,7 @@ Main focus of this project is array/objects:
 
 live page: https://jiparktodolistproject.netlify.app/
 
+live page: https://norfkorean.github.io/JS-ToDo-List-Project/
 
 Instruction: 
 
