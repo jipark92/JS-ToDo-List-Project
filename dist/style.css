@@ -174,10 +174,10 @@ body{
 
 .modal button {
     cursor: pointer;
-    height: 3rem;
+    height: 1.7rem;
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 1000;
     background: -webkit-linear-gradient(blue, pink);
     -webkit-background-clip: text;
