@@ -2,9 +2,11 @@
 
 Main focus of this project is array/objects:
 
+    - Submit new objects into array
+
     - Each task has its own object.
 
-    - Each task value can change based on the edit the user makes on specific task.
+    - Each task property value can change based on the edit the user makes on specific task.
 
     - Whole object can be deleted.
 
@@ -16,7 +18,9 @@ live page: https://jiparktodolistproject.netlify.app/
 
 Instruction: 
 
-    - type in your to-do name. press enter or "add task" button to add todo the task list.
+    1. Type in your to-do name in the input bar.
+
+    2. Press enter or "ADD TASK" button to add todo the task list.
     
     - "EDIT" button allows you to re-name the task.
 
@@ -26,12 +30,12 @@ Instruction:
 
     Once you have TODO box open. You can: 
 
-        - add details of the task.
+        - Add details of the task.
         
-        - enter when the task is due by.
+        - Enter when the task is due by.
 
-        - select the priority level
+        - Select the priority level
 
-        - select if the task is complete.
+        - Select if the task is complete.
 
         . "SAVE & HIDE" button saves the informations.
