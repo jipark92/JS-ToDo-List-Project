@@ -82,6 +82,71 @@ const addTaskToList = (()=>{
     return {taskList, taskID, pushInformation, isChecked};
 })();
 
+const buttonFunctions = (()=>{
+    const deleteFunction = (deleteBtns, liTaskContainer,taskTitle, modalBox) => {
+        deleteBtns.addEventListener('click', ()=>{
+            liTaskContainer.remove();
+            modalBox.remove();
+            alterObjects.deleteObject(taskTitle);
+        })
+    };
+
+    const toDoFunction = (toDoBtns,modalBox) => {
+        toDoBtns.addEventListener('click', ()=>{
+            modalBox.style.visibility = "visible";
+            modalBox.style.height = "158.4px";
+        })
+    };
+
+    const closeModal = (modalBox,closeModalBtns) => {
+        closeModalBtns.addEventListener('click',()=>{
+            modalBox.style.visibility = "hidden";
+            modalBox.style.height = "0px";
+        })
+    };
+
+    const editFunction = (editBtns, taskTitle, contID) => {
+            let editSave = false;
+            editBtns.addEventListener('click', ()=>{
+                if (!editSave){
+                    editSave = true;
+                    taskTitle.classList.remove('disabled');
+                    editBtns.textContent = "SAVE";
+                    taskTitle.style.border = "2px solid green";
+                } else if (editSave){
+                    editSave = false;
+                    editBtns.textContent = "EDIT";
+                    taskTitle.classList.add('disabled');
+                    alterObjects.editObjectTitle(taskTitle, contID);
+                    taskTitle.style.border = "";
+                }
+            })
+    };
+    return {deleteFunction, toDoFunction, closeModal, editFunction};
+})();
+
+const alterObjects = (() =>{
+    const deleteObject = (taskTitle) => {        
+        for (let i = 0; i < addTaskToList.taskList.length; i++){
+            if (taskTitle.value === addTaskToList.taskList[i].title){
+                addTaskToList.taskList.splice(i,1);
+                console.log(addTaskToList.taskList);
+            }
+        }
+    };
+
+    const editObjectTitle = (taskTitle, contID) => {
+        let newContID = parseInt(contID);
+        for (let i = 0; i < addTaskToList.taskList.length; i++){
+            if (newContID === addTaskToList.taskList[i].id){
+                addTaskToList.taskList[i].title = taskTitle.value;
+                console.log(addTaskToList.taskList);
+            }
+        }
+    };
+    return {deleteObject, editObjectTitle};
+})();
+
 const createTaskHTML = (()=>{   
     const makeTaskBar = () => {
         //create container
@@ -231,69 +296,3 @@ const createTaskHTML = (()=>{
     };
     return {makeTaskBar, titleToTaskName};
 })();
-
-const buttonFunctions = (()=>{
-    const deleteFunction = (deleteBtns, liTaskContainer,taskTitle, modalBox) => {
-        deleteBtns.addEventListener('click', ()=>{
-            liTaskContainer.remove();
-            modalBox.remove();
-            alterObjects.deleteObject(taskTitle);
-        })
-    };
-
-    const toDoFunction = (toDoBtns,modalBox) => {
-        toDoBtns.addEventListener('click', ()=>{
-            modalBox.style.visibility = "visible";
-        })
-    };
-
-    const closeModal = (modalBox,closeModalBtns) => {
-        closeModalBtns.addEventListener('click',()=>{
-            modalBox.style.visibility = "hidden";
-        })
-    };
-
-    const editFunction = (editBtns, taskTitle, contID) => {
-            let editSave = false;
-            editBtns.addEventListener('click', ()=>{
-                if (!editSave){
-                    editSave = true;
-                    taskTitle.classList.remove('disabled');
-                    editBtns.textContent = "SAVE";
-                    taskTitle.style.border = "2px solid green";
-                } else if (editSave){
-                    editSave = false;
-                    editBtns.textContent = "EDIT";
-                    taskTitle.classList.add('disabled');
-                    alterObjects.editObjectTitle(taskTitle, contID);
-                    taskTitle.style.border = "";
-                }
-            })
-    };
-    return {deleteFunction, toDoFunction, closeModal, editFunction};
-})();
-
-const alterObjects = (() =>{
-    const deleteObject = (taskTitle) => {        
-        for (let i = 0; i < addTaskToList.taskList.length; i++){
-            if (taskTitle.value === addTaskToList.taskList[i].title){
-                addTaskToList.taskList.splice(i,1);
-                console.log(addTaskToList.taskList);
-            }
-        }
-    };
-
-    const editObjectTitle = (taskTitle, contID) => {
-        let newContID = parseInt(contID);
-        for (let i = 0; i < addTaskToList.taskList.length; i++){
-            if (newContID === addTaskToList.taskList[i].id){
-                addTaskToList.taskList[i].title = taskTitle.value;
-                console.log(addTaskToList.taskList);
-            }
-        }
-    };
-    return {deleteObject, editObjectTitle};
-})();
-
-
-
