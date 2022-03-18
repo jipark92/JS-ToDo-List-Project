@@ -18,10 +18,7 @@ body{
     box-shadow: 3px 3px orange, -3px -3px pink;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
-
 }
-
-
 
 .task-list {
     bordeR: 1px solid black;
@@ -87,12 +84,10 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
-
 .disabled {
     pointer-events: none;
     cursor:not-allowed;
 }
-
 
 .delete-task-input {
     height: 2.5rem;
