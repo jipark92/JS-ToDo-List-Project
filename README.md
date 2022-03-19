@@ -44,4 +44,4 @@ Instruction:
         . "SAVE & HIDE" button saves the informations.
 
 
-for some reason: border radius breaks on chrom/brave browser and on mobile safari browser.
+for some reason: border radius breaks on chrom/brave browser and on mobile safari browser. Everything works fine on FireFox browswer
