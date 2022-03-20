@@ -4,7 +4,8 @@ body{
     display:flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(ellipse farthest-side at 76% 77%, rgba(245, 228, 212, 0.25) 4%, rgba(255, 255, 255, 0) calc(4% + 1px)), radial-gradient(circle at 76% 40%, #fef6ec 4%, rgba(255, 255, 255, 0) 4.18%), linear-gradient(135deg, #ff0000 0%, #000036 100%), radial-gradient(ellipse at 28% 0%, #ffcfac 0%, rgba(98, 149, 144, 0.5) 100%), linear-gradient(180deg, #cd6e8a 0%, #f5eab0 69%, #d6c8a2 70%, #a2758d 100%); background-blend-mode: normal, normal, screen, overlay, normal;
+    background: radial-gradient(ellipse farthest-side at 76% 77%, rgba(245, 228, 212, 0.25) 4%, rgba(255, 255, 255, 0) calc(4% + 1px)), radial-gradient(circle at 76% 40%, #fef6ec 4%, rgba(255, 255, 255, 0) 4.18%), linear-gradient(135deg, #ff0000 0%, #000036 100%), radial-gradient(ellipse at 28% 0%, #ffcfac 0%, rgba(98, 149, 144, 0.5) 100%), linear-gradient(180deg, #cd6e8a 0%, #f5eab0 69%, #d6c8a2 70%, #a2758d 100%); 
+    background-blend-mode: normal, normal, screen, overlay, normal;
 }
 
 .container{ 
@@ -46,9 +47,8 @@ body{
     border: none;
     font-size: 1.2rem;
     font-weight: 1000;
-    background: -webkit-linear-gradient(blue, pink);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: blue;
+    opacity: 60%;
 }
 
 .tasks {
@@ -80,35 +80,13 @@ body{
     background: none;
     border: none;
     font-weight: 700;
-    background: -webkit-linear-gradient(red, pink);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: red;
+    opacity: 60%;
 }
 
 .disabled {
     pointer-events: none;
     cursor:not-allowed;
-}
-
-.delete-task-input {
-    height: 2.5rem;
-    width: 32vw;
-    background-color: #FECACA;
-    border: none;
-    border-radius: 5px;
-    font-weight: 700;
-}
-
-.delete-task-btn {
-    cursor: pointer;
-    height: 3rem;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: 1000;
-    background: -webkit-linear-gradient(pink, red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 #animate-charcter {
@@ -121,7 +99,6 @@ body{
     background-size: auto auto;
     background-size: 200% auto;
     color: #fff;
-    text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: textclip 2s linear infinite;
@@ -138,7 +115,6 @@ body{
     background: -webkit-linear-gradient(black,pink);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 
 .date-container {
@@ -154,9 +130,7 @@ body{
     justify-content: flex-end;
     align-items: center;
     width: 93%;
-    background: -webkit-linear-gradient(blue,red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: purple
 }
 
 .desc-container {
@@ -171,16 +145,12 @@ body{
     justify-content: flex-end;
     align-items: center;
     width: 93%; 
-    background: -webkit-linear-gradient(blue,red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: purple;
     height: 20px;
 }
 
 .desc-text {
-    background: -webkit-linear-gradient(blue,red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: purple;
 }
 
 .modal {
@@ -236,14 +206,6 @@ body{
     border: none;
     font-size: 1rem;
     font-weight: 1000;
-    background: -webkit-linear-gradient(blue, pink);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-
-@media (max-width: 450px) {
-    body {
-        background-color: lightblue;
-    }
+    color: blue;
+    opacity: 60%;
 }
